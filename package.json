@@ -13,12 +13,8 @@
     "start": "node server/server.js",
     "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/UFWebApps/React_Template_Repo.git"
-  },
   "keywords": [],
-  "author": "Dakota Rennemann",
+  "author": "Mustafa Mohamed",
   "license": "MIT",
   "dependencies": {
     "concurrently": "^4.1.0",
