@@ -1,15 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
 
 const Header = () => {
     return (
-        <div className='topnav'>
-            {/* Logo */}
-            <Link id="logo-link" to="/">
-                <img className="topnav-logo" src={ "/logo192.png" } alt="React logo" />
-            </Link>
-        </div>
+        <Navbar bg="light" expand="lg">
+            <Navbar.Brand href="/home">Southern Sierra Wildflower Club</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="mr-auto">
+                <Nav.Link href="#home">Select Flowers</Nav.Link>
+                <Nav.Link href="#link">Update Information</Nav.Link>
+                <Nav.Link href="#link">Insert Information</Nav.Link>
+                </Nav>
+            </Navbar.Collapse>
+            <Navbar.Collapse className="justify-content-end">
+                <Navbar.Text>
+                    Signed in as: <a href="#login">Admin</a>
+                </Navbar.Text>
+            </Navbar.Collapse>
+        </Navbar>
     )
 }
 

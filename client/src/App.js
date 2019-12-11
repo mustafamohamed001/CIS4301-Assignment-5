@@ -3,7 +3,9 @@ import { Route, Switch, Redirect  } from 'react-router-dom';
 import Home from "./views/Home/Home"
 import NotFound from "./views/NotFound"
 import Header from "./components/Header/Header"
-
+import Footer from "./components/Footer/Footer"
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'mdbreact/dist/css/mdb.css';
 
 const App = () => {
   return (
@@ -16,6 +18,7 @@ const App = () => {
         </Route>
         <Route component={NotFound}/>
       </Switch>
+      <Footer />
     </div>
   );
 }
