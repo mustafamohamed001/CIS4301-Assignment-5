@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { Route, Switch, Redirect  } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 class Login extends Component {
     constructor(){
@@ -39,26 +42,45 @@ class Login extends Component {
     render(){
         var signedin = localStorage.getItem('signedin');
         if(this.state.loaded){
-            console.log(this.state.flowers)
-    
-             const displayflowers = this.state.flowers.map((element,index) => 
-                <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src="holder.js/100px180" />
-                    <Card.Body>
-                        <Card.Title>{element.COMNAME}</Card.Title>
-                            <Card.Text>
-                            Some quick example text to build on the card title and make up the bulk of
-                            the card's content.
-                            </Card.Text>
-                        <Button variant="primary">Go somewhere</Button>
-                    </Card.Body>
-                </Card>    
+            const result = this.state.flowers.map((x,i) => {
+                return i % 3 === 0 ? this.state.flowers.slice(i, i+3) : null;
+            }).filter(x => x != null);
+            const displayflowers = this.state.flowers.map((element,index) => {
+                var name = element.COMNAME.replace(/\s+/g, '-');
+                var link = `/flowers/${name}.jpg`;
+                console.log(link)
+                return(
+                        <Card key={index}>
+                        
+                        <Card.Body>
+                            <Row>
+                                <Col>
+                                    <Card.Title>{element.COMNAME}</Card.Title>
+                                    <Card.Text>
+                                    This is a wider card with supporting text below as a natural lead-in to
+                                    additional content. This content is a little bit longer.
+                                    </Card.Text>
+                                </Col>
+                                <Col xs={6} md={4}>
+                                    <Card.Img variant="top" src={link} />
+                                </Col>
+                            </Row>
+                            
+                        </Card.Body>
+                        <Card.Footer>
+                            <small className="text-muted">Last updated 3 mins ago</small>
+                        </Card.Footer>
+                        </Card> 
+                 );
+             }
+                
             ) 
             if(signedin){
                 return (
-                    <div style = {{minHeight: 850}}>
-                    {displayflowers}
-                    </div>
+                    
+                    <Container>
+                        {displayflowers}
+                    </Container>
                 );
             }
             else{
@@ -72,7 +94,7 @@ class Login extends Component {
         }
         else{
             return(
-                <div></div>
+                <br/>
             );
         }
         
