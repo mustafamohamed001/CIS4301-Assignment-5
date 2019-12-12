@@ -60,7 +60,7 @@ class Login extends Component {
         if(this.state.loaded){
 
             const getsightings = (name) => {
-                return <div/>
+                return <div/> 
             }
 
 /*             const result = this.state.flowers.map((x,i) => {
