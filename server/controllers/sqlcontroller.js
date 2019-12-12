@@ -5,7 +5,6 @@ exports.getFlowers = (req, res) => {
     db.all('SELECT * FROM FLOWERS', (err, rows) => {
         if (!err) {
             res.send(rows);
-            console.log(rows);
         }
         else {
             console.log(err);

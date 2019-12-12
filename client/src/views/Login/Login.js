@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import logo from '../../assets/logo.svg';
 import './Home.css';
-import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 
 class Login extends Component {
     constructor(){

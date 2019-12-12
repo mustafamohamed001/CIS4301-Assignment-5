@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './Header.css';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
@@ -10,7 +9,7 @@ const Header = () => {
     if(signedin){
         return (
             <Navbar bg="light" expand="lg">
-                <Navbar.Brand href="/home">Southern Sierra Wildflower Club</Navbar.Brand>
+                <Navbar.Brand href="/">Southern Sierra Wildflower Club</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
