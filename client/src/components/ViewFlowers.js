@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
@@ -13,6 +13,7 @@ class Login extends Component {
         this.state = {
             flowers: [],
             loaded: false,
+            sightings: [],
         }
         this.handleLoad = this.handleLoad.bind(this);
     }
@@ -33,25 +34,45 @@ class Login extends Component {
         .catch((err) => {
             console.log(err);
         });
+
+        axios.post('/api/getsightings')
+        .then((res,err) => {
+            var tempsightings = [];
+
+            for (var j = 0; j < res.data.length; j++){
+                tempsightings.push(res.data[j]);
+            }
+            this.setState({
+                sightings: tempsightings,
+            })
+        })
+        .catch((err) => {
+            console.log(err);
+        });
     }
     
     componentDidMount() { window.addEventListener('load', this.handleLoad)}
 
-    componentWillUnmount() { window.removeEventListener('load', this.handleLoad) }
+    componentWillUnmount() { window.removeEventListener('load', this.handleLoad)}
 
     render(){
         var signedin = localStorage.getItem('signedin');
         if(this.state.loaded){
-            const result = this.state.flowers.map((x,i) => {
+
+            const getsightings = (name) => {
+                return <div/>
+            }
+
+/*             const result = this.state.flowers.map((x,i) => {
                 return i % 3 === 0 ? this.state.flowers.slice(i, i+3) : null;
-            }).filter(x => x != null);
-            const displayflowers = this.state.flowers.map((element,index) => {
+            }).filter(x => x != null); */
+            const displayflowers = this.state.flowers.map((element, index) => {
                 var name = element.COMNAME.replace(/\s+/g, '-');
                 var link = `/flowers/${name}.jpg`;
                 return(
                     <Container>
                         <br/>
-                            <Card key={index}>
+                            <Card>
                             <Card.Body>
                                 <Row>
                                     <Col>
@@ -60,14 +81,16 @@ class Login extends Component {
                                         GENUS: {element.GENUS}
                                         <br/>
                                         SPECIES: {element.SPECIES}
+                                        <br/>
+                                        Most Recent Sightings:
                                         </Card.Text>
-
                                     </Col>
                                     <Col xs={6} md={4}>
                                         <Card.Img variant="top" src={link} />
                                     </Col>
                                 </Row>
-                                <Button variant="success">View/Edit Info</Button>
+                                <Button variant="primary">Update Flower</Button>
+                                <Button variant="primary">Update Sightings</Button>
                                 <Button variant="danger">Delete</Button>
                             </Card.Body>
                             </Card> 
