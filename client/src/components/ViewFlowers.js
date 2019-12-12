@@ -48,39 +48,42 @@ class Login extends Component {
             const displayflowers = this.state.flowers.map((element,index) => {
                 var name = element.COMNAME.replace(/\s+/g, '-');
                 var link = `/flowers/${name}.jpg`;
-                console.log(link)
                 return(
-                        <Card key={index}>
-                        
-                        <Card.Body>
-                            <Row>
-                                <Col>
-                                    <Card.Title>{element.COMNAME}</Card.Title>
-                                    <Card.Text>
-                                    This is a wider card with supporting text below as a natural lead-in to
-                                    additional content. This content is a little bit longer.
-                                    </Card.Text>
-                                </Col>
-                                <Col xs={6} md={4}>
-                                    <Card.Img variant="top" src={link} />
-                                </Col>
-                            </Row>
-                            
-                        </Card.Body>
-                        <Card.Footer>
-                            <small className="text-muted">Last updated 3 mins ago</small>
-                        </Card.Footer>
-                        </Card> 
+                    <Container>
+                        <br/>
+                            <Card key={index}>
+                            <Card.Body>
+                                <Row>
+                                    <Col>
+                                        <Card.Title>{element.COMNAME}</Card.Title>
+                                        <Card.Text>
+                                        GENUS: {element.GENUS}
+                                        <br/>
+                                        SPECIES: {element.SPECIES}
+                                        </Card.Text>
+
+                                    </Col>
+                                    <Col xs={6} md={4}>
+                                        <Card.Img variant="top" src={link} />
+                                    </Col>
+                                </Row>
+                                <Button variant="success">View/Edit Info</Button>
+                                <Button variant="danger">Delete</Button>
+                            </Card.Body>
+                            </Card> 
+                        <br/>
+                    </Container>
                  );
              }
                 
             ) 
             if(signedin){
                 return (
-                    
-                    <Container>
-                        {displayflowers}
-                    </Container>
+                    <div style={{minHeight: 585}}>
+                        <Container>
+                            {displayflowers}
+                        </Container>
+                    </div>
                 );
             }
             else{
@@ -94,7 +97,7 @@ class Login extends Component {
         }
         else{
             return(
-                <br/>
+                <div style={{minHeight: 585}}/>
             );
         }
         

@@ -27,7 +27,7 @@ class Login extends Component {
     handleSubmit(e){
         if(this.state.username === "admin" && this.state.password === "password"){
             localStorage.setItem('signedin', true);
-            this.props.history.push('/admin')
+            this.props.history.push('/listflowers')
         }
     }
 

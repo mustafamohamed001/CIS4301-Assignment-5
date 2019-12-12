@@ -8,14 +8,14 @@ const Header = () => {
 
     if(signedin){
         return (
-            <Navbar bg="light" expand="lg">
+            <Navbar bg="primary" variant="dark" expand="lg" >
                 <Navbar.Brand href="/">Southern Sierra Wildflower Club</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
-                    <Nav.Link href="/viewflowers">Select Flowers</Nav.Link>
+                    <Nav.Link href="/listflowers">Select Flowers</Nav.Link>
                     <Nav.Link href="#link">Update Information</Nav.Link>
-                    <Nav.Link href="#link">Insert Information</Nav.Link>
+                    <Nav.Link href="#link">New Sighting</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
                 <Navbar.Collapse className="justify-content-end">

@@ -5,6 +5,7 @@ import NotFound from "./views/NotFound"
 import Header from "./components/Header/Header"
 import Footer from "./components/Footer/Footer"
 import ViewFlowers from "./components/ViewFlowers"
+import ViewEdit from "./components/ViewEdit"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 
@@ -15,9 +16,10 @@ const App = () => {
       <Switch>
         <Route exact path="/Login" component={Login} />
         <Route exact path="/">
-          <Redirect to="/viewflowers" />
+          <Redirect to="/listflowers" />
         </Route>
-        <Route exact path="/viewflowers" component={ViewFlowers} />
+        <Route exact path="/listflowers" component={ViewFlowers} />
+        <Route exact path="/viewedit/:id" component={ViewEdit} />
         <Route component={NotFound}/>
       </Switch>
       <Footer />
