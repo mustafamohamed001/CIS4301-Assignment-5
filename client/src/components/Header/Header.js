@@ -3,28 +3,18 @@ import { Link } from 'react-router-dom';
 import './Header.css';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import jwt_decode from 'jwt-decode';
 
 const Header = () => {
-    try {
-        var token = localStorage.getItem('jwtToken');
-        var decoded = jwt_decode(token);
-    } catch (error) {
-        return (
-            <Navbar bg="light" expand="lg">
-                <Navbar.Brand href="/home">Southern Sierra Wildflower Club</Navbar.Brand>
-            </Navbar>
-        );
-    }
+    var signedin = localStorage.getItem('signedin');
 
-    if(decoded.username === "admin" && decoded.website === "flowers"){
+    if(signedin){
         return (
             <Navbar bg="light" expand="lg">
                 <Navbar.Brand href="/home">Southern Sierra Wildflower Club</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
-                    <Nav.Link href="#home">Select Flowers</Nav.Link>
+                    <Nav.Link href="/viewflowers">Select Flowers</Nav.Link>
                     <Nav.Link href="#link">Update Information</Nav.Link>
                     <Nav.Link href="#link">Insert Information</Nav.Link>
                     </Nav>
@@ -37,6 +27,14 @@ const Header = () => {
             </Navbar>
         );
     }
+    else{
+        return (
+            <Navbar bg="light" expand="lg">
+                <Navbar.Brand href="/home">Southern Sierra Wildflower Club</Navbar.Brand>
+            </Navbar>
+        );
+    }
+
 }
 
 export default Header;
