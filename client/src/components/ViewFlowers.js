@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect  } from 'react-router-dom';
 
-
 class Login extends Component {
     constructor(){
         super();
-
         this.state = {
             
         }

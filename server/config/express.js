@@ -2,7 +2,7 @@ const path = require('path'),
     express = require('express'),
     morgan = require('morgan'),
     bodyParser = require('body-parser'),
-    exampleRouter = require('../routes/examples.server.routes');
+    sqlrouting = require('../routes/sqlrouting');
 
 module.exports.init = () => {
 
@@ -16,7 +16,7 @@ module.exports.init = () => {
     app.use(bodyParser.json());
 
     // add a router
-    app.use('/api/example', exampleRouter);
+    app.use('/api/', sqlrouting);
 
     if (process.env.NODE_ENV === 'production') {
         // Serve any static files

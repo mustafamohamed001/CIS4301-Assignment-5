@@ -14,7 +14,9 @@ const App = () => {
       <Header />
       <Switch>
         <Route exact path="/Login" component={Login} />
-        <Route exact path="/" />
+        <Route exact path="/">
+          <Redirect to="/viewflowers" />
+        </Route>
         <Route exact path="/viewflowers" component={ViewFlowers} />
         <Route component={NotFound}/>
       </Switch>
