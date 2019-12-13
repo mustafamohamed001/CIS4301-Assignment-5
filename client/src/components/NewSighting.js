@@ -21,11 +21,12 @@ class NewSighting extends Component {
         }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleLoad = this.handleLoad.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleInputChange(event) {
         const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const value = target.value;
         const name = target.name;
 
         this.setState({
@@ -33,6 +34,25 @@ class NewSighting extends Component {
         });
         console.log(name, value);
     }
+
+    handleSubmit = () => {
+        axios.post('/api/sightingsInsert', {
+            name: this.state.flowername,
+            person: this.state.personname,
+            location: this.state.location,
+            date: this.state.dateofsighting,
+        })
+            .then((res, err) => {
+                if (!err) {
+                    console.log(res);
+                    window.location.reload(false);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+    
 
     handleLoad = () => {
         axios.post('/api/getflowers')
@@ -58,16 +78,6 @@ class NewSighting extends Component {
 
     render(){
 
-        const displayflowers = this.state.flowers.map((element, index) => {
-            var name = element.COMNAME.replace(/\s+/g, '-');
-
-            return(
-                <Dropdown.Item>{element.COMNAME}</Dropdown.Item>
-            );
-         }
-            
-        )
-
         var signedin = localStorage.getItem('signedin');
         if(signedin){
             return(
@@ -81,21 +91,13 @@ class NewSighting extends Component {
                                     </div>
                                     <Card.Body>
                                         <Row>
-                                                <p>Flower Name: <Dropdown>
-                                                                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                                                    Select a Flower
-                                                                </Dropdown.Toggle>
-                                                                <Dropdown.Menu style={{overflowY: 'scroll', maxHeight: (window.innerHeight - (this.myRef ? (this.myRef.getBoundingClientRect().top + this.myRef.getBoundingClientRect().height + 100) : 200))}}>
-                                                                    <Dropdown.Item href="#/action-1">New</Dropdown.Item>
-                                                                    {displayflowers}
-                                                                </Dropdown.Menu>
-                                                                </Dropdown></p>
-                                                <p>Your Name: <MDBInput value={this.state.personname} name="personname" onChange={this.handleInputChange}/></p>
-                                                <p>Location: <MDBInput value={this.state.location} name="location"/></p>
-                                                <p>Date of Sighting: <MDBInput value={this.state.dateofsighting} name="dateofsighting"/></p>                                           
+                                                <p>Flower Name: <MDBInput label="Flower Name" value={this.state.flowername} name="flowername" onChange={this.handleInputChange}/></p>
+                                                <p>Your Name: <MDBInput label="Your Name" value={this.state.personname} name="personname" onChange={this.handleInputChange}/></p>
+                                                <p>Location: <MDBInput label="Location" value={this.state.location} name="location" onChange={this.handleInputChange}/></p>
+                                                <p>Date of Sighting: <MDBInput label="Date of Sighting" value={this.state.dateofsighting} name="dateofsighting" onChange={this.handleInputChange}/></p>                                           
                                         </Row>
                                         <div class="d-flex justify-content-center">
-                                            <Button variant="primary" >Finish</Button>
+                                            <Button variant="primary" onClick={this.handleSubmit}>Finish</Button>
                                         </div>
                                     </Card.Body>
                                 </Card.Body>

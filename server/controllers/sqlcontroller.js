@@ -126,7 +126,8 @@ exports.sightingsInsert = (req, res) => {
     const db = new sqlite3.Database(__dirname + '/flowers2019.db');
     db.all(SQLInsertSighting, (err, rows) => {
         if (!err) {
-            res.send('Sighting has been inserted!');
+            console.log('Sighting has been inserted!')
+            res.send('Sighting has been inserted!')
         }
         else {
             console.log(err);
