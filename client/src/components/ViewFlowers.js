@@ -74,16 +74,18 @@ class Login extends Component {
                 });
 
                 s2.splice(0,10) */
-
+                var cnt = 0;
                 var sight2 = s.map((element, index) => {
 
-                    if (element.NAME === name) {
+                    if (element.NAME === name && cnt < 10) {
+                       cnt++;
                         return (
                             <div>
                                 <li>{element.PERSON} | {element.LOCATION} | {element.SIGHTED}</li>
                             </div>
                             
                         );
+                        
                     }
                     else {
                         return <div></div>
