@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import './Home.css';
 import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 
@@ -27,7 +28,8 @@ class Login extends Component {
     handleSubmit(e){
         if(this.state.username === "admin" && this.state.password === "password"){
             localStorage.setItem('signedin', true);
-            this.props.history.push('/listflowers')
+            e.preventDefault()
+		    this.props.history.push('/listflowers');
         }
     }
 

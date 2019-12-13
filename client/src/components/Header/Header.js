@@ -8,7 +8,7 @@ const Header = () => {
 
     if(signedin){
         return (
-            <Navbar bg="primary" variant="dark" expand="lg" >
+            <Navbar bg="light" expand="lg">
                 <Navbar.Brand href="/">Southern Sierra Wildflower Club</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -20,7 +20,7 @@ const Header = () => {
                 </Navbar.Collapse>
                 <Navbar.Collapse className="justify-content-end">
                     <Navbar.Text>
-                        Signed in as: <a href="#login">Admin</a>
+                        Signed in as: <a href="/signout">Admin</a>
                     </Navbar.Text>
                 </Navbar.Collapse>
             </Navbar>
@@ -29,7 +29,7 @@ const Header = () => {
     else{
         return (
             <Navbar bg="light" expand="lg">
-                <Navbar.Brand href="/home">Southern Sierra Wildflower Club</Navbar.Brand>
+                <Navbar.Brand href="/listflowers">Southern Sierra Wildflower Club</Navbar.Brand>
             </Navbar>
         );
     }

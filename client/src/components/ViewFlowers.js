@@ -58,9 +58,40 @@ class Login extends Component {
     render(){
         var signedin = localStorage.getItem('signedin');
         if(this.state.loaded){
-
             const getsightings = (name) => {
-                return <div/> 
+                var s = this.state.sightings
+                var s2 = []
+                s = s.sort((a, b) => new Date(b.SIGHTED.split('/').reverse()) - new Date(a.SIGHTED.split('/').reverse()));
+                
+                /* var sight = s.map((element, index) => {
+                    if (element.NAME === name) {
+
+                        s2.push(s)
+                    }
+                    else {
+                        return
+                    } 
+                });
+
+                s2.splice(0,10) */
+
+                var sight2 = s.map((element, index) => {
+
+                    if (element.NAME === name) {
+                        return (
+                            <div>
+                                <li>{element.PERSON} | {element.LOCATION} | {element.SIGHTED}</li>
+                            </div>
+                            
+                        );
+                    }
+                    else {
+                        return <div></div>
+                    }
+                    
+                });
+
+                return sight2;
             }
 
 /*             const result = this.state.flowers.map((x,i) => {
@@ -83,6 +114,7 @@ class Login extends Component {
                                         SPECIES: {element.SPECIES}
                                         <br/>
                                         Most Recent Sightings:
+                                        {getsightings(element.COMNAME)}
                                         </Card.Text>
                                     </Col>
                                     <Col xs={6} md={4}>
