@@ -25,13 +25,12 @@ exports.getSightings = (req, res) => {
 }
 
 exports.flowersUpdate = (req, res) => {
-        const oldName = req.body.oldcomname
-        const newName = req.body.comname
-        const oldgenus = req.body.oldgenus
-        const newGenus = req.body.genus
-        const oldspecies = req.body.oldspecies
-        const newSpecies = req.body.species
-        console.log(oldName, newName, oldgenus, newGenus, oldspecies, newSpecies)
+        const oldName = "'" + req.body.oldcomname + "'";
+        const newName = "'" + req.body.comname + "'";
+        const oldgenus = "'" + req.body.oldgenus + "'";
+        const newGenus = "'" + req.body.genus + "'";
+        const oldspecies = "'" + req.body.oldspecies + "'";
+        const newSpecies = "'" + req.body.species + "'";
 
         const db = new sqlite3.Database(__dirname + '/flowers2019.db');
         //name
