@@ -169,6 +169,7 @@ class Login extends Component {
             const displayflowers = this.state.flowers.map((element, index) => {
                 var name = element.COMNAME.replace(/\s+/g, '-');
                 var link = `/flowers/${name}.jpg`;
+
                 return(
                     <Container>
                         <br/>

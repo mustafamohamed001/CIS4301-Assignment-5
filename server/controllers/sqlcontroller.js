@@ -25,55 +25,48 @@ exports.getSightings = (req, res) => {
 }
 
 exports.flowersUpdate = (req, res) => {
-        const oldName = "'" + req.body.oldcomname + "'";
-        const newName = "'" + req.body.comname + "'";
-        const oldgenus = "'" + req.body.oldgenus + "'";
-        const newGenus = "'" + req.body.genus + "'";
-        const oldspecies = "'" + req.body.oldspecies + "'";
-        const newSpecies = "'" + req.body.species + "'";
+    const oldName = "'" + req.body.oldcomname + "'";
+    const newName = "'" + req.body.comname + "'";
+    const oldgenus = "'" + req.body.oldgenus + "'";
+    const newGenus = "'" + req.body.genus + "'";
+    const oldspecies = "'" + req.body.oldspecies + "'";
+    const newSpecies = "'" + req.body.species + "'";
 
-        const db = new sqlite3.Database(__dirname + '/flowers2019.db');
-        //name
-        const SQLUpdateName = 'UPDATE FLOWERS SET COMNAME = ' + newName + ' WHERE FLOWERS.COMNAME = ' + oldName;
-        const SQLUpdateSightings = 'UPDATE SIGHTINGS SET NAME = ' + newName + ' WHERE SIGHTINGS.NAME = ' + oldName;
-        
-        db.all(SQLUpdateName, (err, rows) => {
-            if (!err) {
-                db.all(SQLUpdateSightings, (err, rows) => {
-                    if (!err) {
-                        res.send('Name has been changed!');
-                    }
-                    else {
-                        console.log(err);
-                    }
-                })
-            }
-            else {
-                console.log(err);
-            }
-        });
-    
-        //genus
-        const SQLUpdateGenus = 'UPDATE FLOWERS SET GENUS = ' + newGenus + ' WHERE FLOWERS.GENUS = ' + oldgenus;
-        db.all(SQLUpdateGenus, (err, rows) => {
-            if (!err) {
-                res.send('Genus has been changed!');
-            }
-            else {
-                console.log(err);
-            }
-        });
-    
-        //species
-        const SQLUpdateSpecies = 'UPDATE FLOWERS SET SPECIES = ' + newSpecies + ' WHERE FLOWERS.SPECIES = ' + oldspecies;
-        db.all(SQLUpdateSpecies, (err, rows) => {
-            if (!err) {
-                res.send('Species has been changed!');
-            }
-            else {
-                console.log(err);
-            }
-        });
+    const db = new sqlite3.Database(__dirname + '/flowers2019.db');
+    //name
+    const SQLUpdateName = 'UPDATE FLOWERS SET COMNAME = ' + newName + ' WHERE FLOWERS.COMNAME = ' + oldName;
+    const SQLUpdateSightings = 'UPDATE SIGHTINGS SET NAME = ' + newName + ' WHERE SIGHTINGS.NAME = ' + oldName;
+    const SQLUpdateGenus = 'UPDATE FLOWERS SET GENUS = ' + newGenus + ' WHERE FLOWERS.GENUS = ' + oldgenus;
+    const SQLUpdateSpecies = 'UPDATE FLOWERS SET SPECIES = ' + newSpecies + ' WHERE FLOWERS.SPECIES = ' + oldspecies;
+    db.all(SQLUpdateName, (err, rows) => {
+        if (!err) {
+            db.all(SQLUpdateSightings, (err, rows) => {
+                if (!err) {
+                    db.all(SQLUpdateGenus, (err, rows) => {
+                        if (!err) {
+                            db.all(SQLUpdateSpecies, (err, rows) => {
+                                if (!err) {
+                                    res.send('Name has been changed!\nGenus has been changed!\nSpecies has been changed!\n');
+                                }
+                                else {
+                                    console.log(err);
+                                }
+                            })
+                        }
+                        else {
+                            console.log(err);
+                        }
+                    })
+                }
+                else {
+                    console.log(err);
+                }
+            })
+        }
+        else {
+            console.log(err);
+        }
+    })
     
 }
 
