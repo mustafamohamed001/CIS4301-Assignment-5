@@ -7,7 +7,6 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { MDBInput } from "mdbreact";
-
 class Login extends Component {
     constructor(){
         super();
@@ -192,7 +191,7 @@ class Login extends Component {
                                         </Card.Text>
                                     </Col>
                                     <Col xs={6} md={4}>
-                                        <Card.Img variant="top" src={link} />
+                                        <Card.Img variant="top" src={link} onError={(e)=>{e.target.onerror = null; e.target.src="/flowers/generic.jpg"}}  />
                                     </Col>
                                 </Row>
                                 {(this.state.showBox && this.state.idx === index) ? 
