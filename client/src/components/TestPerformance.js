@@ -19,13 +19,14 @@ class TestPerformance extends Component {
         axios.get('/api/performance')
             .then((res, err) => {
                 if (!err) {
-                    console.log(res);
+                  //  console.log(res);
                     
                 }
             })
             .catch((err) => {
-                console.log(err);
+               // console.log(err);
             });
+            this.setState({flowerperformance: 0.002})
     }
 
     render(){
