@@ -27,12 +27,16 @@ class Login extends Component {
         this.showInputBox = this.showInputBox.bind(this);
         this.hideSightings = this.hideSightings.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
-    showInputBox = (index) => {
+    showInputBox = (index, comname, genus, species) => {
         this.setState({
             idx: index,
-            showBox: true
+            showBox: true,
+            comname: comname,
+            genus: genus,
+            species: species
         })
     }
 
@@ -63,8 +67,8 @@ class Login extends Component {
         console.log(name, value);
     }
 
-/*     handleChange = () = {
-        axios.post('/api/flowersupdate', obj)
+     handleChange = () => {
+        axios.post('/api/flowersupdate', )
             .then((res, err) => {
                 if (!err) {
                     console.log(res.data);
@@ -73,7 +77,7 @@ class Login extends Component {
             .catch((err) => {
                 console.log(err);
             });
-    } */
+    } 
 
     handleLoad = () => {
         axios.post('/api/getflowers')
@@ -156,13 +160,13 @@ class Login extends Component {
                                 <Row>
                                     <Col>
                                         <Card.Title>{(this.state.showBox && this.state.idx === index) ? 
-                                                    <MDBInput label={element.COMNAME} value={element.COMNAME} onChange={this.handleInputChange} name="comname"/> : element.COMNAME}</Card.Title>
+                                                    <MDBInput value={this.state.comname} onChange={this.handleInputChange} name="comname"/> : element.COMNAME}</Card.Title>
                                         <Card.Text>
                                         GENUS: {(this.state.showBox && this.state.idx === index) ? 
-                                                    <MDBInput label={element.GENUS} value={element.GENUS} onChange={this.handleInputChange} name="genus"/> : element.GENUS}
+                                                    <MDBInput value={this.state.genus} onChange={this.handleInputChange} name="genus"/> : element.GENUS}
                                         <br/>
                                         SPECIES: {(this.state.showBox && this.state.idx === index) ? 
-                                                    <MDBInput value={element.SPECIES} onChange={this.handleInputChange} name="species"/> : element.SPECIES}
+                                                    <MDBInput value={this.state.species} onChange={this.handleInputChange} name="species"/> : element.SPECIES}
                                         <br/>
                                         Most Recent Sightings:
                                         {(this.state.showSighting && this.state.idx === index) ? getsightings(element.COMNAME) : <div></div>}
@@ -174,8 +178,8 @@ class Login extends Component {
                                     </Col>
                                 </Row>
                                 {(this.state.showBox && this.state.idx === index) ? 
-                                                <Button variant="primary" onClick={e=>this.showInputBox(index)}>Finish</Button> : 
-                                                <Button variant="primary" onClick={e=>this.showInputBox(index)}>Update Flower</Button>}
+                                                <Button variant="primary" onClick={e=>this.handleChange(index)}>Finish</Button> : 
+                                                <Button variant="primary" onClick={e=>this.showInputBox(index, element.COMNAME, element.GENUS, element.SPECIES)}>Update Flower</Button>}
                                 {(this.state.showSighting && this.state.idx === index) ? 
                                                 <Button variant="primary" onClick={e=>this.hideSightings(index)}>Hide Sightings</Button> : 
                                                 <Button variant="primary" onClick={e=>this.showSightings(index)}>Show Sightings</Button>}
