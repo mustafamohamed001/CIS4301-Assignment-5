@@ -186,7 +186,7 @@ class Login extends Component {
                                         SPECIES: {(this.state.showBox && this.state.idx === index) ? 
                                                     <MDBInput value={this.state.species} onChange={this.handleInputChange} name="species"/> : element.SPECIES}
                                         <br/>
-                                        Most Recent Sightings:
+                                        {(this.state.showSighting && this.state.idx === index) ? <div>Most Recent Sightings:</div> : <div></div>}
                                         {(this.state.showSighting && this.state.idx === index) ? getsightings(element.COMNAME) : <div></div>}
                                         
                                         </Card.Text>
