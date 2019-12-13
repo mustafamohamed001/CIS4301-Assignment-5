@@ -7,5 +7,6 @@ const sqlitecontroller = require('../controllers/sqlcontroller.js');
     router.route('/flowersUpdate').post(sqlitecontroller.flowersUpdate);
     router.route('/sightingsInsert').post(sqlitecontroller.sightingsInsert);
     router.route('/flowersDelete').post(sqlitecontroller.flowersDelete);
+    router.route('/performance').get(sqlitecontroller.performance); 
   
 module.exports = router;

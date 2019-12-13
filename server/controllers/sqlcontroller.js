@@ -103,6 +103,7 @@ exports.flowersDelete = (req, res) => {
     const db = new sqlite3.Database(__dirname + '/flowers2019.db');
     db.all(SQLDeleteFlower, (err, rows) => {
         if (!err) {
+            console.log('Flower has been deleted!');
             res.send('Flower has been deleted!');
         }
         else {
@@ -110,3 +111,17 @@ exports.flowersDelete = (req, res) => {
         }
     });
 } 
+
+exports.performance = (req, res) => {
+    const db = new sqlite3.Database(__dirname + '/flowers2019.db');
+    var preQuery = new Date().getTime();
+    db.serialize(function(){
+        db.each("SELECT * FROM flowers", function(err,row){
+            //console.log(row.GENUS + " | " + row.SPECIES + " | " + row.COMNAME);
+        });
+    });
+    var postQuery = new Date().getTime();
+    var duration = (postQuery - preQuery) / 1000;
+    console.log(duration);
+    res.body.num(duration);
+}

@@ -7,6 +7,7 @@ import Footer from "./components/Footer/Footer"
 import ViewFlowers from "./components/ViewFlowers"
 import signout from "./components/signout"
 import NewSighting from "./components/NewSighting"
+import TestPerformance from "./components/TestPerformance"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 
@@ -22,6 +23,7 @@ const App = () => {
         <Route exact path="/listflowers" component={ViewFlowers} />
         <Route exact path="/signout" component={signout} />
         <Route exact path="/newsighting" component={NewSighting}/>
+        <Route exact path="/performance" component={TestPerformance}/>
         <Route component={NotFound}/>
       </Switch>
       <Footer />
