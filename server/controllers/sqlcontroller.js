@@ -32,6 +32,8 @@ exports.flowersUpdate = (req, res) => {
     const oldspecies = "'" + req.body.oldspecies + "'";
     const newSpecies = "'" + req.body.species + "'";
 
+    //res.send(oldName);
+
     const db = new sqlite3.Database(__dirname + '/flowers2019.db');
     //name
     const SQLUpdateName = 'UPDATE FLOWERS SET COMNAME = ' + newName + ' WHERE FLOWERS.COMNAME = ' + oldName;
@@ -46,7 +48,10 @@ exports.flowersUpdate = (req, res) => {
                         if (!err) {
                             db.all(SQLUpdateSpecies, (err, rows) => {
                                 if (!err) {
+                                   // console.log("G");
+                                    console.log('Name has been changed!\nGenus has been changed!\nSpecies has been changed!\n');
                                     res.send('Name has been changed!\nGenus has been changed!\nSpecies has been changed!\n');
+                                    
                                 }
                                 else {
                                     console.log(err);
