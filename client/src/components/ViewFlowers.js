@@ -72,7 +72,28 @@ class Login extends Component {
         console.log(name, value);
     }
 
-     handleChange = () => {
+    handleDelete = (comname, genus, species) => {
+        axios.post('/api/flowersDelete', {
+            "name": comname,
+            "genus": genus,
+            "species": species
+        }
+        )
+            .then((res, err) => {
+                if (!err) {
+                    console.log(res.data);
+                    window.location.reload(false);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        this.setState({
+            showBox: false
+        })
+    }
+
+    handleChange = () => {
         axios.post('/api/flowersupdate', {
             "oldcomname": this.state.oldcomname,
             "oldgenus": this.state.oldgenus,
@@ -201,7 +222,7 @@ class Login extends Component {
                                 {(this.state.showSighting && this.state.idx === index) ? 
                                                 <Button variant="primary" onClick={e=>this.hideSightings(index)}>Hide Sightings</Button> : 
                                                 <Button variant="primary" onClick={e=>this.showSightings(index)}>Show Sightings</Button>}
-                                <Button variant="danger">Delete</Button>
+                                <Button variant="danger" onClick={e=>this.handleDelete(element.COMNAME, element.GENUS, element.SPECIES)}>Delete</Button>
                             </Card.Body>
                             </Card> 
                         <br/>

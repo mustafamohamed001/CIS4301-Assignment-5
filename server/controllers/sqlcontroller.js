@@ -75,52 +75,6 @@ exports.flowersUpdate = (req, res) => {
     
 }
 
-exports.sightingsUpdate = (req, res) => {
-    const newName = "'" + req.body.newName + "'";
-    const person = "'" + req.body.person + "'";
-    const name = "'" + req.body.name + "'";
-    const location = "'" + req.body.location + "'";
-    const date = "'" + req.body.date + "'";
-    const change = req.body.change;
-
-    if (change === "person") {
-        const SQLUpdatePerson = 'UPDATE SIGHTINGS SET PERSON = ' + newName + ' WHERE SIGHTINGS.PERSON = ' + person + ' AND SIGHTINGS.NAME = ' + name + ' AND SIGHTINGS.LOCATION = ' + location + ' AND SIGHTINGS.SIGHTED = ' + date;
-        const db = new sqlite3.Database(__dirname + '/flowers2019.db');
-        db.all(SQLUpdatePerson, (err, rows) => {
-            if (!err) {
-                res.send('Person has been changed!');
-            }
-            else {
-                console.log(err);
-            }
-        });
-    }
-    else if (change === "location") {
-        const SQLUpdateLocation = 'UPDATE SIGHTINGS SET LOCATION = ' + newName + ' WHERE SIGHTINGS.PERSON = ' + person + ' AND SIGHTINGS.NAME = ' + name + ' AND SIGHTINGS.LOCATION = ' + location + ' AND SIGHTINGS.SIGHTED = ' + date;
-        const db = new sqlite3.Database(__dirname + '/flowers2019.db');
-        db.all(SQLUpdateLocation, (err, rows) => {
-            if (!err) {
-                res.send('Location has been changed!');
-            }
-            else {
-                console.log(err);
-            }
-        });
-    }
-    else if (change === "date") {
-        const SQLUpdateDate = 'UPDATE SIGHTINGS SET SIGHTED = ' + newName + ' WHERE SIGHTINGS.PERSON = ' + person + ' AND SIGHTINGS.NAME = ' + name + ' AND SIGHTINGS.LOCATION = ' + location + ' AND SIGHTINGS.SIGHTED = ' + date;
-        const db = new sqlite3.Database(__dirname + '/flowers2019.db');
-        db.all(SQLUpdateDate, (err, rows) => {
-            if (!err) {
-                res.send('Date has been changed!');
-            }
-            else {
-                console.log(err);
-            }
-        });
-    }
-}
-
 exports.sightingsInsert = (req, res) => {
     const name = "'" + req.body.name + "'";
     const person = "'" + req.body.person + "'";
@@ -133,24 +87,6 @@ exports.sightingsInsert = (req, res) => {
         if (!err) {
             console.log('Sighting has been inserted!')
             res.send('Sighting has been inserted!')
-        }
-        else {
-            console.log(err);
-        }
-    });
-}
-
-exports.sightingsDelete = (req, res) => {
-    const name = "'" + req.body.name + "'";
-    const person = "'" + req.body.person + "'";
-    const location = "'" + req.body.location + "'";
-    const date = "'" + req.body.date + "'";
-
-    const SQLDeleteSighting = 'DELETE FROM SIGHTINGS WHERE NAME = ' + name + ' AND PERSON = ' + person + ' AND LOCATION = ' + location + ' AND SIGHTED = ' + date;
-    const db = new sqlite3.Database(__dirname + '/flowers2019.db');
-    db.all(SQLDeleteSighting, (err, rows) => {
-        if (!err) {
-            res.send('Sighting has been deleted!');
         }
         else {
             console.log(err);
