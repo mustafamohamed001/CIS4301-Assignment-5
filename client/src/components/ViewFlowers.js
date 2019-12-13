@@ -93,6 +93,7 @@ class Login extends Component {
         this.setState({
             showBox: false
         })
+        window.location.reload(false);
     } 
 
     handleLoad = () => {
