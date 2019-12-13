@@ -31,6 +31,7 @@ exports.flowersUpdate = (req, res) => {
         const newGenus = req.body.genus
         const oldspecies = req.body.oldspecies
         const newSpecies = req.body.species
+        console.log(oldName, newName, oldgenus, newGenus, oldspecies, newSpecies)
 
         const db = new sqlite3.Database(__dirname + '/flowers2019.db');
         //name
