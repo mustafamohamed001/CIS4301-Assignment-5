@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import { MDBInput } from "mdbreact";
 
 class Login extends Component {
     constructor(){
@@ -14,9 +15,65 @@ class Login extends Component {
             flowers: [],
             loaded: false,
             sightings: [],
+            showSighting: false,
+            idx: 0,
+            showBox: false,
+            genus: '',
+            species: '',
+            comname: ''
         }
         this.handleLoad = this.handleLoad.bind(this);
+        this.showSightings = this.showSightings.bind(this);
+        this.showInputBox = this.showInputBox.bind(this);
+        this.hideSightings = this.hideSightings.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
     }
+
+    showInputBox = (index) => {
+        this.setState({
+            idx: index,
+            showBox: true
+        })
+    }
+
+    showSightings = (index) => {
+        console.log(index)
+        this.setState({
+            showSighting: true,
+            idx: index
+        })
+    }
+
+    hideSightings = (index) => {
+        console.log(index)
+        this.setState({
+            showSighting: false,
+            idx: index
+        })
+    }
+
+    handleInputChange(event) {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
+        console.log(name, value);
+    }
+
+/*     handleChange = () = {
+        axios.post('/api/flowersupdate', obj)
+            .then((res, err) => {
+                if (!err) {
+                    console.log(res.data);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    } */
 
     handleLoad = () => {
         axios.post('/api/getflowers')
@@ -62,18 +119,6 @@ class Login extends Component {
                 var s = this.state.sightings
                 var s2 = []
                 s = s.sort((a, b) => new Date(b.SIGHTED.split('/').reverse()) - new Date(a.SIGHTED.split('/').reverse()));
-                
-                /* var sight = s.map((element, index) => {
-                    if (element.NAME === name) {
-
-                        s2.push(s)
-                    }
-                    else {
-                        return
-                    } 
-                });
-
-                s2.splice(0,10) */
                 var cnt = 0;
                 var sight2 = s.map((element, index) => {
 
@@ -81,7 +126,11 @@ class Login extends Component {
                        cnt++;
                         return (
                             <div>
-                                <li>{element.PERSON} | {element.LOCATION} | {element.SIGHTED}</li>
+                                <p>
+                                    <li>Person: {element.PERSON}</li>
+                                    <li>Location: {element.LOCATION}</li>
+                                    <li>Date: {element.SIGHTED}</li>
+                                </p>
                             </div>
                             
                         );
@@ -96,9 +145,6 @@ class Login extends Component {
                 return sight2;
             }
 
-/*             const result = this.state.flowers.map((x,i) => {
-                return i % 3 === 0 ? this.state.flowers.slice(i, i+3) : null;
-            }).filter(x => x != null); */
             const displayflowers = this.state.flowers.map((element, index) => {
                 var name = element.COMNAME.replace(/\s+/g, '-');
                 var link = `/flowers/${name}.jpg`;
@@ -109,22 +155,30 @@ class Login extends Component {
                             <Card.Body>
                                 <Row>
                                     <Col>
-                                        <Card.Title>{element.COMNAME}</Card.Title>
+                                        <Card.Title>{(this.state.showBox && this.state.idx === index) ? 
+                                                    <MDBInput label={element.COMNAME} value={element.COMNAME} onChange={this.handleInputChange} name="comname"/> : element.COMNAME}</Card.Title>
                                         <Card.Text>
-                                        GENUS: {element.GENUS}
+                                        GENUS: {(this.state.showBox && this.state.idx === index) ? 
+                                                    <MDBInput label={element.GENUS} value={element.GENUS} onChange={this.handleInputChange} name="genus"/> : element.GENUS}
                                         <br/>
-                                        SPECIES: {element.SPECIES}
+                                        SPECIES: {(this.state.showBox && this.state.idx === index) ? 
+                                                    <MDBInput value={element.SPECIES} onChange={this.handleInputChange} name="species"/> : element.SPECIES}
                                         <br/>
                                         Most Recent Sightings:
-                                        {getsightings(element.COMNAME)}
+                                        {(this.state.showSighting && this.state.idx === index) ? getsightings(element.COMNAME) : <div></div>}
+                                        
                                         </Card.Text>
                                     </Col>
                                     <Col xs={6} md={4}>
                                         <Card.Img variant="top" src={link} />
                                     </Col>
                                 </Row>
-                                <Button variant="primary">Update Flower</Button>
-                                <Button variant="primary">Update Sightings</Button>
+                                {(this.state.showBox && this.state.idx === index) ? 
+                                                <Button variant="primary" onClick={e=>this.showInputBox(index)}>Finish</Button> : 
+                                                <Button variant="primary" onClick={e=>this.showInputBox(index)}>Update Flower</Button>}
+                                {(this.state.showSighting && this.state.idx === index) ? 
+                                                <Button variant="primary" onClick={e=>this.hideSightings(index)}>Hide Sightings</Button> : 
+                                                <Button variant="primary" onClick={e=>this.showSightings(index)}>Show Sightings</Button>}
                                 <Button variant="danger">Delete</Button>
                             </Card.Body>
                             </Card> 
