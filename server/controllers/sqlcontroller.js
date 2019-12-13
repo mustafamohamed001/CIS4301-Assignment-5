@@ -25,14 +25,18 @@ exports.getSightings = (req, res) => {
 }
 
 exports.flowersUpdate = (req, res) => {
-    const newName = "'" + req.body.newName + "'";
-    const oldName = "'" + req.body.oldName + "'";
-    const change = req.body.change;
+        const oldName = req.body.oldcomname
+        const newName = req.body.comname
+        const oldgenus = req.body.oldgenus
+        const newGenus = req.body.genus
+        const oldspecies = req.body.oldspecies
+        const newSpecies = req.body.species
 
-    if (change === "name") {
+        const db = new sqlite3.Database(__dirname + '/flowers2019.db');
+        //name
         const SQLUpdateName = 'UPDATE FLOWERS SET COMNAME = ' + newName + ' WHERE FLOWERS.COMNAME = ' + oldName;
         const SQLUpdateSightings = 'UPDATE SIGHTINGS SET NAME = ' + newName + ' WHERE SIGHTINGS.NAME = ' + oldName;
-        const db = new sqlite3.Database(__dirname + '/flowers2019.db');
+        
         db.all(SQLUpdateName, (err, rows) => {
             if (!err) {
                 db.all(SQLUpdateSightings, (err, rows) => {
@@ -48,10 +52,9 @@ exports.flowersUpdate = (req, res) => {
                 console.log(err);
             }
         });
-    }
-    else if (change === "genus") {
-        const SQLUpdateGenus = 'UPDATE FLOWERS SET GENUS = ' + newName + ' WHERE FLOWERS.GENUS = ' + oldName;
-        const db = new sqlite3.Database(__dirname + '/flowers2019.db');
+    
+        //genus
+        const SQLUpdateGenus = 'UPDATE FLOWERS SET GENUS = ' + newGenus + ' WHERE FLOWERS.GENUS = ' + oldgenus;
         db.all(SQLUpdateGenus, (err, rows) => {
             if (!err) {
                 res.send('Genus has been changed!');
@@ -60,10 +63,9 @@ exports.flowersUpdate = (req, res) => {
                 console.log(err);
             }
         });
-    }
-    else if (change === "species") {
-        const SQLUpdateSpecies = 'UPDATE FLOWERS SET SPECIES = ' + newName + ' WHERE FLOWERS.SPECIES = ' + oldName;
-        const db = new sqlite3.Database(__dirname + '/flowers2019.db');
+    
+        //species
+        const SQLUpdateSpecies = 'UPDATE FLOWERS SET SPECIES = ' + newSpecies + ' WHERE FLOWERS.SPECIES = ' + oldspecies;
         db.all(SQLUpdateSpecies, (err, rows) => {
             if (!err) {
                 res.send('Species has been changed!');
@@ -72,7 +74,7 @@ exports.flowersUpdate = (req, res) => {
                 console.log(err);
             }
         });
-    }
+    
 }
 
 exports.sightingsUpdate = (req, res) => {

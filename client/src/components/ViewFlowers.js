@@ -20,7 +20,10 @@ class Login extends Component {
             showBox: false,
             genus: '',
             species: '',
-            comname: ''
+            comname: '',
+            oldgenus: '',
+            oldspecies: '',
+            oldcomname: ''
         }
         this.handleLoad = this.handleLoad.bind(this);
         this.showSightings = this.showSightings.bind(this);
@@ -36,7 +39,10 @@ class Login extends Component {
             showBox: true,
             comname: comname,
             genus: genus,
-            species: species
+            species: species,
+            oldcomname: comname,
+            oldgenus: genus,
+            oldspecies: species
         })
     }
 
@@ -68,7 +74,15 @@ class Login extends Component {
     }
 
      handleChange = () => {
-        axios.post('/api/flowersupdate', )
+        axios.post('/api/flowersupdate', {
+            "oldcomname": this.state.oldcomname,
+            "oldgenus": this.state.oldgenus,
+            "oldspecies": this.state.oldspecies,
+            "comname": this.state.comname,
+            "genus": this.state.genus,
+            "species": this.state.species
+        }
+        )
             .then((res, err) => {
                 if (!err) {
                     console.log(res.data);
